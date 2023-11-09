@@ -1,0 +1,41 @@
+table {
+    table-layout: fixed;
+    width: 50%;
+    text-align: center;
+}
+
+table {
+    margin-left: 13%;
+    margin-top: 6%;
+    font-size: xxx-large;
+}
+
+th {
+    font-size: larger;
+}
+
+td {
+    border: 1px solid black;
+    width: 8vh;
+    height: 8vh;
+}
+
+p {
+    height: 20px;
+    width: 135px;
+}
+
+#setting {
+    display: flex;
+    flex-flow: column;
+    gap: 50px;
+}
+
+#winStatus {
+    font-size: 50px;
+    font-weight: bold;
+    text-align: center;
+    text-wrap: nowrap;
+    margin-top: auto;
+    margin-bottom: auto;
+}

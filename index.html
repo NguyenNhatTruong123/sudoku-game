@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css.css" />
+  </head>
+  <body onload="setUpBoard()">
+    <div style="display: flex; gap: 50px; flex-flow: row-reverse">
+      <div id="setting">
+        <div>
+          <p>DIFFICULTY:</p>
+          <select
+            name="difficulty"
+            id="difficulty"
+            onchange="chooseDifficulty()"
+          >
+            <option value="easy">Very easy</option>
+            <option value="medium">Easy</option>
+            <option value="hard">Normal</option>
+            <option value="very-hard">Hard</option>
+            <option value="insane">Very Hard</option>
+            <option value="inhuman">Out of the world</option>
+          </select>
+        </div>
+        <div>
+          <p>ERROR CHECK:</p>
+          <select
+            name="erroCheck"
+            id="errorCheck"
+            onchange="errorCheckChange()"
+          >
+            <option value="noCheck">NO CHECK</option>
+            <option value="check">CHECK</option>
+          </select>
+        </div>
+        <div style="display: none" id="errorCheckStatus"></div>
+        <button
+          id="gameButton"
+          style="width: 125px"
+          type="button"
+          onclick="restart()"
+        >
+          Restart the game
+        </button>
+      </div>
+      <div style="display: none" id="winStatus"></div>
+
+      <div id="grid"></div>
+      <br />
+    </div>
+  </body>
+  <script src="./sudoku.js"></script>
+  <script src="./cell.js"></script>
+  <script src="./scripts.js"></script>
+</html>
