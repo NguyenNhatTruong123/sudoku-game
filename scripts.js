@@ -5,6 +5,7 @@ var gameButton = document.getElementById("gameButton");
 var errorCheck = document.getElementById("errorCheck").value;
 var errorCheckStatus = document.getElementById("errorCheckStatus");
 var tutorial = document.getElementById("tutorial")
+var note = document.getElementById("note")
 
 var Board;
 var SolveBoard;
@@ -14,6 +15,8 @@ var solveBoard
 var activeCell = ""
 var activeRow = 0
 var activeCol = 0
+
+var isNote = false
 
 var maximumError = {
     "easy": 2,
@@ -53,6 +56,15 @@ function setUpBoard() {
 function chooseDifficulty() {
     difficulty = document.getElementById("difficulty").value;
     setUpBoard()
+}
+
+function enableNote() {
+    isNote = !isNote
+    if (isNote) {
+        note.style.backgroundColor = "green"
+    } else {
+        note.style.backgroundColor = "white"
+    }
 }
 
 function createTdElement(i, j) {
@@ -96,12 +108,26 @@ function clickCell(i, j) {
 window.addEventListener('keydown', (e) => {
     let num = parseInt(e.key)
     if (num >= 1 && num <= 9) {
-        if (activeCell && Board[activeRow][activeCol].value === ".") {
-            activeCell.innerText = num.toString()
-            if (num.toString() !== SolveBoard[activeRow][activeCol]) {
-                activeCell.style.backgroundColor = "#ff00007a"
+        if (isNote) {
+            activeCell.style.fontSize = "20px"
+            if (activeCell && Board[activeRow][activeCol].value === ".") {
+                if (!activeCell.innerText.includes(num.toString())) {
+                    activeCell.innerText += num.toString()
+                }
+            }
+        } else {
+            activeCell.style.fontSize = "xxx-large"
+            if (activeCell && Board[activeRow][activeCol].value === ".") {
+                activeCell.innerText = num.toString()
+                if (num.toString() !== SolveBoard[activeRow][activeCol]) {
+                    activeCell.style.backgroundColor = "#ff00007a"
+                }
             }
         }
+    }
+
+    if (num === 0) {
+        enableNote()
     }
 
     switch (e.key) {
