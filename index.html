@@ -6,7 +6,8 @@
     <link rel="stylesheet" href="css.css" />
   </head>
   <body onload="setUpBoard()">
-    <div style="display: flex; gap: 50px; flex-flow: row-reverse">
+    <div style="display: flex">
+      <div id="grid"></div>
       <div id="setting">
         <div>
           <p>DIFFICULTY:</p>
@@ -41,16 +42,20 @@
           type="button"
           onclick="restart()"
         >
-          Restart the game
+        <button
+          id="note"
+          style="width: 100px; height: 100px;"
+          type="button"
+          onclick="enableNote()"
+        >
+          NOTE
         </button>
+        <p id="tutorial"></p>
       </div>
-      <div style="display: none" id="winStatus"></div>
-
-      <div id="grid"></div>
       <br />
     </div>
   </body>
+  <script src="cell.js"></script>
   <script src="./sudoku.js"></script>
-  <script src="./cell.js"></script>
   <script src="./scripts.js"></script>
 </html>

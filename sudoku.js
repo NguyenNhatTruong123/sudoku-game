@@ -614,6 +614,23 @@
         return rows;
     };
 
+    sudoku.board_string_to_cell = function (board_string) {
+        /* Convert a board string to a two-dimensional array
+        */
+        var cells = []
+        var boards = sudoku.board_string_to_grid(board_string)
+
+        for (var i = 0; i < 9; i++) {
+            let cell;
+            for (var j = 0; j < 9; j++) {
+                cell = new Cell(i, j, boards[i][j])
+                cells[i] = [...(cells[i] ? cells[i] : []), cell]
+            }
+        }
+
+        return cells;
+    };
+
     sudoku.board_grid_to_string = function (board_grid) {
         /* Convert a board grid to a string
         */
