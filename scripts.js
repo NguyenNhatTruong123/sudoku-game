@@ -99,12 +99,13 @@ function createTdElement(i, j) {
 }
 
 function clickCell(i, j) {
-    if (Board[i][j].value === ".") {
+    if (!Board[i][j].canChangedValue) return
+    if (activeCell.style.backgroundColor === "white" || activeCell.style.backgroundColor === "beige") {
         activeCell.style.backgroundColor = "white"
-        activeRow = i
-        activeCol = j
-        applyActiveCell()
     }
+    activeRow = i
+    activeCol = j
+    applyActiveCell()
 }
 
 window.addEventListener('keydown', (e) => {
@@ -121,10 +122,15 @@ window.addEventListener('keydown', (e) => {
             activeCell.style.fontSize = "xxx-large"
             if (activeCell && Board[activeRow][activeCol].value === ".") {
                 activeCell.innerText = num.toString()
-                if (errorCheck === "check" && num.toString() !== SolveBoard[activeRow][activeCol]) {
-                    activeCell.style.backgroundColor = "#ff00007a"
-                    errorCount++;
-                    errorCheckStatus.innerText = "Total error: " + errorCount + "/" + maximumError[difficulty]
+                Board[activeRow][activeCol].value = num.toString()
+                if (errorCheck === "check") {
+                    if (Board[activeRow][activeCol].value !== SolveBoard[activeRow][activeCol]) {
+                        activeCell.style.backgroundColor = "#ff00007a"
+                        errorCount++;
+                        errorCheckStatus.innerText = "Total error: " + errorCount + "/" + maximumError[difficulty]
+                    } else {
+                        activeCell.style.backgroundColor = "white"
+                    }
                 }
             }
         }
@@ -169,18 +175,18 @@ window.addEventListener('keydown', (e) => {
 
 function applyActiveCell() {
     activeCell = document.getElementById(activeRow + "&" + activeCol)
-    activeCell.style.backgroundColor = "beige"
+    if (Board[activeRow][activeCol].value !== "." && Board[activeRow][activeCol].value !== SolveBoard[activeRow][activeCol]) {
+        activeCell.style.backgroundColor = "#ff00007a"
+    } else {
+        activeCell.style.backgroundColor = "beige"
+    }
 }
 
 function checkRightNumber() {
-    if (Board[activeRow][activeCol].canChangeValue) {
-        activeCell.style.backgroundColor = "white"
+    if (Board[activeRow][activeCol].value !== "." && Board[activeRow][activeCol].value !== SolveBoard[activeRow][activeCol]) {
+        activeCell.style.backgroundColor = "#ff00007a"
     } else {
-        if (activeCell.innerText !== "" && activeCell.innerText !== SolveBoard[activeRow][activeCol]) {
-            activeCell.style.backgroundColor = "#ff00007a"
-        } else {
-            activeCell.style.backgroundColor = "white"
-        }
+        activeCell.style.backgroundColor = "white"
     }
 }
 
