@@ -17,6 +17,7 @@ var activeRow = 0
 var activeCol = 0
 
 var isNote = false
+var errorCount = 0
 
 var maximumError = {
     "easy": 2,
@@ -51,6 +52,7 @@ function setUpBoard() {
     }
     grid.appendChild(gridTable)
     activeCell = document.getElementById("0&0")
+    errorCount = 0
 }
 
 function chooseDifficulty() {
@@ -119,8 +121,10 @@ window.addEventListener('keydown', (e) => {
             activeCell.style.fontSize = "xxx-large"
             if (activeCell && Board[activeRow][activeCol].value === ".") {
                 activeCell.innerText = num.toString()
-                if (num.toString() !== SolveBoard[activeRow][activeCol]) {
+                if (errorCheck === "check" && num.toString() !== SolveBoard[activeRow][activeCol]) {
                     activeCell.style.backgroundColor = "#ff00007a"
+                    errorCount++;
+                    errorCheckStatus.innerText = "Total error: " + errorCount + "/" + maximumError[difficulty]
                 }
             }
         }
@@ -188,7 +192,7 @@ function errorCheckChange() {
     errorCheck = document.getElementById("errorCheck").value;
     if (errorCheck === "check") {
         errorCheckStatus.style.display = "inline"
-        errorCheckStatus.innerText = "Total error: " + maximumError[difficulty]
+        errorCheckStatus.innerText = "Total error: " + errorCount + "/" + maximumError[difficulty]
     } else {
         errorCheckStatus.style.display = "none"
     }
